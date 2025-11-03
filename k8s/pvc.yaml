@@ -1,0 +1,39 @@
+---
+# PersistentVolumeClaim for Backend Uploads
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: rag-backend-uploads-pvc
+  namespace: rag-system
+  labels:
+    app: rag-backend
+    component: storage
+spec:
+  accessModes:
+  - ReadWriteMany  # Multiple pods can read/write
+  resources:
+    requests:
+      storage: 100Gi
+  storageClassName: standard  # Change based on your cloud provider
+  # AWS EFS: efs-sc
+  # Azure Files: azurefile
+  # GCP Filestore: standard
+
+---
+# PersistentVolumeClaim for Qdrant Data
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: qdrant-data-pvc
+  namespace: rag-system
+  labels:
+    app: qdrant
+    component: storage
+spec:
+  accessModes:
+  - ReadWriteOnce  # Single pod access (StatefulSet will manage multiple)
+  resources:
+    requests:
+      storage: 50Gi
+  storageClassName: standard
+

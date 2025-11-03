@@ -1,0 +1,110 @@
+---
+# Headless Service for Qdrant StatefulSet
+apiVersion: v1
+kind: Service
+metadata:
+  name: qdrant-service
+  namespace: rag-system
+  labels:
+    app: qdrant
+    component: database
+spec:
+  clusterIP: None  # Headless service for StatefulSet
+  selector:
+    app: qdrant
+  ports:
+  - name: http
+    port: 6333
+    targetPort: 6333
+    protocol: TCP
+  - name: grpc
+    port: 6334
+    targetPort: 6334
+    protocol: TCP
+
+---
+# Qdrant StatefulSet for Vector Database
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: qdrant
+  namespace: rag-system
+  labels:
+    app: qdrant
+    component: database
+spec:
+  serviceName: qdrant-service
+  replicas: 2  # High availability with 2 replicas
+  selector:
+    matchLabels:
+      app: qdrant
+      component: database
+  template:
+    metadata:
+      labels:
+        app: qdrant
+        component: database
+    spec:
+      securityContext:
+        fsGroup: 1000
+      
+      containers:
+      - name: qdrant
+        image: qdrant/qdrant:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - name: http
+          containerPort: 6333
+          protocol: TCP
+        - name: grpc
+          containerPort: 6334
+          protocol: TCP
+        
+        env:
+        - name: QDRANT__SERVICE__GRPC_PORT
+          value: "6334"
+        - name: QDRANT__SERVICE__HTTP_PORT
+          value: "6333"
+        
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "500m"
+          limits:
+            memory: "4Gi"
+            cpu: "2000m"
+        
+        volumeMounts:
+        - name: qdrant-storage
+          mountPath: /qdrant/storage
+        
+        livenessProbe:
+          httpGet:
+            path: /
+            port: 6333
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        
+        readinessProbe:
+          httpGet:
+            path: /readyz
+            port: 6333
+          initialDelaySeconds: 10
+          periodSeconds: 5
+          timeoutSeconds: 3
+          failureThreshold: 3
+  
+  # Volume Claim Templates for StatefulSet
+  volumeClaimTemplates:
+  - metadata:
+      name: qdrant-storage
+    spec:
+      accessModes:
+      - ReadWriteOnce
+      resources:
+        requests:
+          storage: 50Gi
+      storageClassName: standard
+

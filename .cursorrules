@@ -1,0 +1,513 @@
+# AGENTS Rules for RAG System Development
+
+## Core Principles
+
+You are an expert full-stack engineer building a production-ready RAG system. Follow these rules strictly:
+
+### 1. Architecture Compliance
+- **ALWAYS** reference `@architecture.md` before writing any code
+- **NEVER** deviate from the specified tech stack
+- **ALWAYS** follow the exact project structure outlined
+- **ALWAYS** use the specified models from FPT Cloud
+
+### 2. Code Quality Standards
+
+#### Python (Backend)
+```
+MUST:
+- Use async/await for all I/O operations
+- Type hints for all function signatures
+- Pydantic models for all data validation
+- Comprehensive error handling with try-except
+- Structured logging (not print statements)
+- Docstrings for all classes and functions
+- Follow PEP 8 style guide
+
+NEVER:
+- Use synchronous blocking calls
+- Hardcode configuration values
+- Ignore exceptions silently
+- Use bare except clauses
+- Leave TODO comments in production code
+```
+
+#### TypeScript/React (Frontend)
+```
+MUST:
+- Strict TypeScript mode (no 'any' type)
+- Use Ant Design components exclusively
+- Implement proper error boundaries
+- Use React Query for data fetching
+- Follow component composition patterns
+- Implement loading and error states
+- Use functional components with hooks
+- Follow Airbnb React style guide
+
+NEVER:
+- Mix business logic with UI logic
+- Create custom UI components when Ant Design has equivalent
+- Use inline styles (use Ant Design theme)
+- Ignore TypeScript errors
+- Use class components
+```
+
+### 3. API Integration Rules
+
+#### FPT Cloud API
+```
+CONFIGURATION PATTERN (ALWAYS USE):
+{
+  "openai_api_base": "https://api.fpt.ai/v1",
+  "openai_api_key": os.getenv("FPT_API_KEY"),
+  "model": "<model_name>"
+}
+
+MODELS:
+- Vietnamese_Embedding: dimensions=1024
+- GLM-4.5: for LLM generation
+- bge-reranker-v2-m3: for reranking
+- Llama-Guard-3-8B: for safety
+
+ALWAYS:
+- Use langchain_openai classes
+- Configure base URL to FPT Cloud
+- Handle API errors gracefully
+- Implement retry logic
+- Log all API calls
+```
+
+### 4. Security Rules
+
+```
+MUST:
+- Use environment variables for all secrets
+- Validate all user inputs
+- Implement rate limiting
+- Use HTTPS in production
+- Sanitize file uploads
+- Check file sizes before processing
+- Implement CORS properly
+
+NEVER:
+- Commit secrets to git
+- Trust user input without validation
+- Expose internal error details to users
+- Allow unlimited file uploads
+- Skip authentication checks
+```
+
+### 5. Error Handling Pattern
+
+```python
+# ALWAYS use this pattern
+async def some_function():
+    try:
+        # Main logic
+        result = await some_operation()
+        logger.info(f"Operation successful: {result}")
+        return result
+    except SpecificException as e:
+        logger.error(f"Specific error: {str(e)}", exc_info=True)
+        raise HTTPException(
+            status_code=400,
+            detail="User-friendly message in Vietnamese"
+        )
+    except Exception as e:
+        logger.error(f"Unexpected error: {str(e)}", exc_info=True)
+        raise HTTPException(
+            status_code=500,
+            detail="Đã xảy ra lỗi. Vui lòng thử lại sau."
+        )
+```
+
+### 6. RAG Pipeline Rules
+
+```
+EXECUTION ORDER (NEVER CHANGE):
+1. Input Guard (Llama-Guard-3-8B)
+   → If unsafe: return warning immediately
+2. Retrieval (Vietnamese_Embedding + Qdrant)
+   → Get top 20 candidates
+3. Reranking (bge-reranker-v2-m3)
+   → Reorder to top 5
+4. Generation (GLM-4.5)
+   → Generate response with context
+5. Output Guard (Llama-Guard-3-8B)
+   → If unsafe: return filtered message
+
+ALWAYS:
+- Process steps sequentially
+- Log each step
+- Handle failures at each step
+- Return appropriate error messages
+```
+
+### 7. Component Development Order
+
+```
+BACKEND (Phase 1):
+1.1 → Config management
+1.2 → Logging setup
+1.3 → Vietnamese Embedding
+1.4 → Qdrant Retriever
+1.5 → Reranker
+1.6 → Guard
+1.7 → Complete RAG Pipeline
+1.8 → API Endpoints
+1.9 → Main app with middleware
+
+FRONTEND (Phase 2):
+2.1 → Project setup
+2.2 → Theme configuration
+2.3 → API service layer
+2.4 → Custom hooks
+2.5 → Chat components
+2.6 → Document upload
+2.7 → Main app
+
+INFRASTRUCTURE (Phase 3 & 4):
+3.1 → K8s manifests
+3.2 → Helm chart
+4.1 → Dockerfiles
+4.2 → CI/CD pipeline
+```
+
+### 8. Testing Requirements
+
+```
+BEFORE MOVING TO NEXT COMPONENT:
+- Write unit tests
+- Test manually
+- Verify error handling
+- Check logging output
+- Test edge cases
+
+TEST COVERAGE:
+- Core functions: 80%+
+- API endpoints: 100%
+- Critical paths: 100%
+```
+
+### 9. Documentation Rules
+
+```python
+# ALWAYS include docstrings
+async def retrieve_and_rerank(
+    query: str, 
+    k_initial: int = 20, 
+    k_final: int = 5
+) -> List[Document]:
+    """
+    Two-stage retrieval: Vector search + Reranking.
+    
+    Args:
+        query: User's search query
+        k_initial: Number of candidates to retrieve
+        k_final: Number of documents after reranking
+        
+    Returns:
+        List of top-K reranked documents
+        
+    Raises:
+        QdrantException: If vector search fails
+        RerankerException: If reranking fails
+    """
+    # Implementation
+```
+
+### 10. Ant Design Usage Rules
+
+```typescript
+// CORRECT: Use Ant Design components
+import { Button, Input, Card, Layout, Typography } from 'antd';
+
+const MyComponent = () => (
+  <Card>
+    <Typography.Title level={4}>Title</Typography.Title>
+    <Input placeholder="Enter text" />
+    <Button type="primary">Submit</Button>
+  </Card>
+);
+
+// WRONG: Custom components when Ant Design has them
+const MyButton = styled.button`...`;  // ❌ DON'T DO THIS
+```
+
+### 11. Environment Variables
+
+```
+REQUIRED IN .env:
+FPT_API_KEY=xxx
+QDRANT_HOST=localhost
+QDRANT_PORT=6333
+REDIS_HOST=localhost
+REDIS_PORT=6379
+LOG_LEVEL=INFO
+
+OPTIONAL:
+MAX_UPLOAD_SIZE=52428800
+CHUNK_SIZE=1000
+CHUNK_OVERLAP=200
+```
+
+### 12. Git Commit Rules
+
+```
+COMMIT MESSAGE FORMAT:
+<type>(<scope>): <subject>
+
+TYPES:
+- feat: New feature
+- fix: Bug fix
+- docs: Documentation
+- style: Formatting
+- refactor: Code restructuring
+- test: Adding tests
+- chore: Maintenance
+
+EXAMPLES:
+feat(backend): add Vietnamese embedding service
+fix(frontend): resolve chat message rendering issue
+docs(readme): update installation instructions
+```
+
+### 13. Code Review Checklist
+
+```
+BEFORE SUBMITTING CODE:
+□ Follows architecture.md
+□ No hardcoded values
+□ All secrets in environment variables
+□ Comprehensive error handling
+□ Proper logging
+□ Type hints/TypeScript types
+□ Docstrings/comments
+□ Tests written and passing
+□ No console.log or print statements
+□ No unused imports
+□ Code formatted properly
+□ No TODO/FIXME in production code
+```
+
+### 14. Kubernetes Rules
+
+```
+DEPLOYMENT REQUIREMENTS:
+- All resources in 'rag-system' namespace
+- Resource requests AND limits specified
+- Liveness and readiness probes configured
+- Health check endpoints implemented
+- Rolling update strategy
+- HPA configured for backend
+- PVC for Qdrant data
+- Secrets for sensitive data
+- ConfigMap for configuration
+- Proper labels and selectors
+```
+
+### 15. Performance Requirements
+
+```
+RESPONSE TIMES:
+- Health check: < 100ms
+- Simple query: < 2s
+- Complex query: < 5s
+- Document upload: < 10s (for 10MB file)
+- Streaming: First token < 1s
+
+RESOURCE LIMITS:
+Backend:
+  requests: 512Mi memory, 500m CPU
+  limits: 2Gi memory, 2000m CPU
+  
+Frontend:
+  requests: 128Mi memory, 100m CPU
+  limits: 256Mi memory, 200m CPU
+```
+
+### 16. Common Mistakes to AVOID
+
+```
+❌ NEVER DO:
+1. Using 'any' type in TypeScript
+2. Hardcoding API keys or URLs
+3. Ignoring errors silently
+4. Using print() instead of logging
+5. Creating custom UI when Ant Design has it
+6. Blocking the event loop with sync operations
+7. Not handling edge cases
+8. Leaving commented-out code
+9. Using wrong vector dimensions (1024, not 1536)
+10. Skipping input validation
+
+✅ ALWAYS DO:
+1. Reference @architecture.md
+2. Use environment variables
+3. Implement proper error handling
+4. Use structured logging
+5. Use Ant Design components
+6. Use async/await properly
+7. Test before moving forward
+8. Write clean, documented code
+9. Configure FPT Cloud API correctly
+10. Validate all user inputs
+```
+
+### 17. Response Format
+
+```
+When I complete a task, respond with:
+
+✅ COMPLETED: [Component/Feature Name]
+
+**What I Built:**
+- File: path/to/file.py
+- Key Features:
+  - Feature 1
+  - Feature 2
+
+**Code Highlights:**
+```python/typescript
+// Show key code snippet
+```
+
+**Testing:**
+- Tested: [what was tested]
+- Result: [pass/fail]
+
+**Next Steps:**
+- [What should be done next]
+
+**Notes:**
+- [Any important notes or decisions made]
+```
+
+### 18. When Stuck or Unclear
+
+```
+IF UNCERTAIN:
+1. Ask for clarification
+2. Reference @architecture.md
+3. Suggest multiple approaches
+4. Explain trade-offs
+5. Wait for confirmation before proceeding
+
+DON'T:
+- Make assumptions
+- Skip steps
+- Implement differently from architecture
+- Proceed without understanding requirements
+```
+
+### 19. File Organization
+
+```
+IMPORTS ORDER:
+1. Standard library
+2. Third-party packages
+3. Local imports
+
+EXAMPLE:
+import os
+import json
+from typing import List, Optional
+
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
+
+from core.config import settings
+from core.rag import RAGPipeline
+```
+
+### 20. Production Readiness Checklist
+
+```
+BEFORE MARKING AS COMPLETE:
+□ All functionality working
+□ Error handling comprehensive
+□ Logging properly configured
+□ Tests written and passing
+□ Documentation complete
+□ Security measures in place
+□ Performance acceptable
+□ Docker images building
+□ K8s manifests valid
+□ CI/CD pipeline functional
+□ Monitoring configured
+□ Ready for production deployment
+```
+
+---
+
+## Quick Reference Commands
+
+### Development
+```bash
+# Backend
+cd backend && uvicorn main:app --reload
+
+# Frontend
+cd frontend && pnpm dev
+
+# Docker Compose
+docker-compose up -d
+
+# Kubernetes
+kubectl apply -f k8s/
+kubectl get pods -n rag-system
+```
+
+### Testing
+```bash
+# Backend tests
+pytest tests/ -v
+
+# Frontend tests
+pnpm test
+
+# Type checking
+mypy backend/
+pnpm type-check
+```
+
+---
+
+## Remember
+
+**EVERY line of code should:**
+1. Follow these rules
+2. Reference architecture.md
+3. Be production-ready
+4. Be well-documented
+5. Handle errors properly
+6. Be testable
+7. Be maintainable
+
+**Success Criteria:**
+- Code works as specified
+- Follows all rules above
+- Passes all tests
+- Ready for production
+- Team can maintain it
+
+---
+
+## Emergency Contacts
+
+If critical issues arise:
+1. Check @architecture.md first
+2. Review error logs
+3. Verify environment variables
+4. Check API connectivity
+5. Review this AGENTS rules file
+
+**Never:**
+- Skip error handling
+- Ignore test failures
+- Deploy untested code
+- Commit secrets
+- Deviate from architecture
+
+---
+
+Let's build production-ready code! 🚀

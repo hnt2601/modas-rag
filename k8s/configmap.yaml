@@ -1,0 +1,44 @@
+---
+# ConfigMap for non-sensitive backend configuration
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: rag-backend-config
+  namespace: rag-system
+  labels:
+    app: rag-backend
+    component: config
+data:
+  # FPT Cloud API Configuration
+  FPT_API_BASE: "https://api.fpt.ai/v1"
+  
+  # Qdrant Configuration
+  QDRANT_HOST: "qdrant-service"
+  QDRANT_PORT: "6333"
+  QDRANT_COLLECTION_NAME: "documents"
+  
+  # Redis Configuration (Optional)
+  REDIS_HOST: "redis-service"
+  REDIS_PORT: "6379"
+  REDIS_DB: "0"
+  
+  # Application Configuration
+  LOG_LEVEL: "INFO"
+  MAX_UPLOAD_SIZE: "52428800"  # 50MB
+  ALLOWED_ORIGINS: "http://localhost:5173,http://localhost:3000"
+  
+  # RAG Configuration
+  CHUNK_SIZE: "1000"
+  CHUNK_OVERLAP: "200"
+  RETRIEVAL_TOP_K: "20"
+  RERANK_TOP_N: "5"
+  
+  # Model Configuration
+  EMBEDDING_MODEL: "Vietnamese_Embedding"
+  EMBEDDING_DIMENSIONS: "1024"
+  LLM_MODEL: "GLM-4.5"
+  LLM_TEMPERATURE: "0.7"
+  LLM_MAX_TOKENS: "2000"
+  RERANKER_MODEL: "bge-reranker-v2-m3"
+  GUARD_MODEL: "Llama-Guard-3-8B"
+
