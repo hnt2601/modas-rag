@@ -26,8 +26,8 @@ class Settings(BaseSettings):
     # FPT Cloud API
     fpt_api_key: str = Field(..., description="FPT Cloud API Key")
     fpt_api_base: str = Field(
-        default="https://api.fpt.ai/v1",
-        description="FPT Cloud API Base URL"
+        default="https://mkp-api.fptcloud.com/v1",
+        description="FPT Cloud Marketplace API Base URL"
     )
     
     # Qdrant Configuration
@@ -84,6 +84,10 @@ class Settings(BaseSettings):
     reranker_model: str = Field(
         default="bge-reranker-v2-m3",
         description="Reranker model name"
+    )
+    reranker_provider: str = Field(
+        default="fpt",
+        description="Reranker provider (fpt, cohere, jina, etc.)"
     )
     guard_model: str = Field(
         default="Llama-Guard-3-8B",

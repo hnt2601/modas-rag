@@ -1,518 +1,423 @@
-# 📚 RAG System Documentation Package
+# MODAS RAG - Documentation Index
 
-Complete documentation and prompts for building a production-ready RAG (Retrieval-Augmented Generation) system with Vietnamese AI models, React + Ant Design UI, and Kubernetes deployment.
+> **Version:** 2.0
+> **Last Updated:** 2025-11-15
+> **Status:** Complete - Ready for Migration
 
-## 📦 What's Included
-
-This package contains everything you need to build the RAG system in Cursor AI:
-
-### 1. **architecture.md** (Main Reference)
-- 📖 **Purpose:** Complete system architecture and technical specifications
-- 🎯 **Use:** Reference throughout development for all architectural decisions
-- 📝 **Contains:**
-  - Complete tech stack (React + Ant Design, FastAPI, Qdrant, K8s)
-  - All FPT Cloud AI models configuration
-  - Full component specifications
-  - Kubernetes deployment manifests
-  - CI/CD pipeline setup
-  - Code examples for every component
-
-### 2. **.cursorrules** (Auto-Loaded Rules)
-- 📖 **Purpose:** Automatic rules that Cursor AI follows during development
-- 🎯 **Use:** Place in project root - Cursor loads automatically
-- 📝 **Contains:**
-  - Code quality standards
-  - Architectural compliance rules
-  - Common patterns and anti-patterns
-  - Error handling templates
-  - Security requirements
-  - Testing requirements
-
-### 3. **cursor-prompt.md** (Development Guide)
-- 📖 **Purpose:** Step-by-step prompt for building the entire system
-- 🎯 **Use:** Follow phase by phase in Cursor chat
-- 📝 **Contains:**
-  - 4 development phases
-  - Detailed component specifications
-  - Code templates
-  - Testing strategies
-  - Quality requirements
-  - Complete checklist
-
-### 4. **QUICKSTART.md** (This File)
-- 📖 **Purpose:** Quick start guide for using the documentation
-- 🎯 **Use:** First-time setup and reference
-- 📝 **Contains:**
-  - Setup instructions
-  - Usage examples
-  - Troubleshooting guide
-  - Pro tips
-
-## 🚀 Quick Start (3 Steps)
-
-### Step 1: Setup Project
-
-```bash
-# Create and initialize project
-mkdir rag-system && cd rag-system
-git init
-
-# Copy documentation files
-cp /path/to/architecture.md ./docs/architecture.md
-cp /path/to/.cursorrules ./.cursorrules
-cp /path/to/cursor-prompt.md ./docs/cursor-prompt.md
-cp /path/to/QUICKSTART.md ./docs/QUICKSTART.md
-```
-
-### Step 2: Open in Cursor
-
-```bash
-# Open project in Cursor
-cursor .
-```
-
-### Step 3: Start Building
-
-Open Cursor AI Chat (Cmd+L / Ctrl+L) and paste:
-
-```
-@docs/architecture.md @docs/cursor-prompt.md 
-
-Hello! I'm ready to build the RAG system following the architecture.
-Let's start with Phase 1.1 - Backend Structure Setup.
-Please create all necessary files and folders as specified.
-```
-
-## 📖 How to Use Each File
-
-### Using architecture.md
-
-**Reference for every decision:**
-```
-Cursor Chat:
-→ @docs/architecture.md What's the correct way to configure Vietnamese Embedding?
-→ @docs/architecture.md Show me the RAG pipeline implementation
-→ @docs/architecture.md How should I structure the React components?
-```
-
-**Multi-file context:**
-```
-Cursor Chat:
-→ @docs/architecture.md @backend/core/rag.py
-→ Is this implementation following the architecture specifications?
-```
-
-### Using .cursorrules
-
-**Automatic:** Place in project root, Cursor loads it automatically
-
-**Manual reference:**
-```
-Cursor Chat:
-→ @.cursorrules Review my code for compliance
-→ @.cursorrules What's the error handling pattern I should use?
-→ @.cursorrules Check if I'm following the security rules
-```
-
-### Using cursor-prompt.md
-
-**Phase-by-phase development:**
-```
-Cursor Chat:
-→ @docs/cursor-prompt.md I'm ready for Phase 1.2
-→ @docs/cursor-prompt.md What are the requirements for Phase 2.3?
-→ @docs/cursor-prompt.md Show me the testing strategy
-```
-
-**Combined with architecture:**
-```
-Cursor Chat:
-→ @docs/architecture.md @docs/cursor-prompt.md
-→ Let's implement Phase 1.7 (RAG Pipeline) following the architecture specs
-```
-
-## 🎯 Development Workflow
-
-### Recommended Flow
-
-```
-Phase 1: Backend Core
-├─ 1.1 Project Structure
-├─ 1.2 Configuration
-├─ 1.3 Vietnamese Embedding
-├─ 1.4 Qdrant Retriever
-├─ 1.5 Reranker
-├─ 1.6 Llama Guard
-├─ 1.7 RAG Pipeline
-├─ 1.8 API Endpoints
-└─ 1.9 Main App
-    └─→ Test thoroughly before Phase 2
-
-Phase 2: Frontend
-├─ 2.1 React + TS + Ant Design Setup
-├─ 2.2 Theme Configuration
-├─ 2.3 API Service Layer
-├─ 2.4 Custom Hooks
-├─ 2.5 Chat Components
-├─ 2.6 Document Upload
-└─ 2.7 Main App Integration
-    └─→ Test integration with backend
-
-Phase 3: Kubernetes
-├─ 3.1 K8s Manifests
-├─ 3.2 Helm Chart
-└─ 3.3 Deployment Scripts
-    └─→ Test in K8s cluster
-
-Phase 4: CI/CD
-├─ 4.1 Dockerfiles
-├─ 4.2 GitHub Actions
-└─ 4.3 Production Deployment
-    └─→ Final production testing
-```
-
-## 💡 Pro Tips
-
-### 1. Always Reference Architecture
-```
-❌ Bad: "Create a chat API"
-✅ Good: "@docs/architecture.md Create chat API following section 3.3"
-```
-
-### 2. Use Multi-File Context
-```
-@docs/architecture.md @backend/core/rag.py @docs/cursor-prompt.md
-Refactor this RAG pipeline to match the architecture specifications in Phase 1.7
-```
-
-### 3. Leverage Cursor Composer
-```
-Cmd+I (or Ctrl+I):
-Following @docs/architecture.md, implement the complete backend Phase 1
-with all files: config.py, embeddings.py, retriever.py, reranker.py, 
-guard.py, and rag.py. Ensure all follow .cursorrules patterns.
-```
-
-### 4. Generate Tests Automatically
-```
-@backend/core/embeddings.py @.cursorrules
-Generate comprehensive unit tests following the testing requirements
-```
-
-### 5. Get Architecture Explanations
-```
-@docs/architecture.md
-Explain the RAG pipeline flow step by step.
-Why do we use 1024 dimensions for Vietnamese Embedding?
-```
-
-## 🏗️ Architecture Highlights
-
-### Tech Stack
-| Component | Technology | Purpose |
-|-----------|-----------|---------|
-| **Frontend** | React + Ant Design | Enterprise UI with design system |
-| **Backend** | FastAPI | High-performance async API |
-| **Embedding** | Vietnamese_Embedding (FPT) | 1024-dim Vietnamese vectors |
-| **Reranker** | bge-reranker-v2-m3 (FPT) | Improve retrieval accuracy |
-| **LLM** | GLM-4.5 (FPT) | Response generation |
-| **Guard** | Llama-Guard-3-8B (FPT) | Content safety |
-| **Vector DB** | Qdrant | Vector storage & search |
-| **Deploy** | Kubernetes | Container orchestration |
-
-### Key Features
-- ✅ Vietnamese-optimized AI models
-- ✅ Design system compliance (Ant Design)
-- ✅ Production-ready Kubernetes deployment
-- ✅ Auto-scaling with HPA
-- ✅ Content safety with Llama Guard
-- ✅ Two-stage retrieval (vector search + reranking)
-- ✅ Streaming chat responses
-- ✅ CI/CD with GitHub Actions
-
-## 📝 Example Prompts
-
-### Starting from Scratch
-```
-@docs/architecture.md @docs/cursor-prompt.md
-
-Hi! I want to build the complete RAG system from scratch.
-Let's start with Phase 1.1 - Backend Structure.
-Create the project with:
-- Proper folder structure
-- requirements.txt
-- .env.example
-- main.py with health check
-```
-
-### Implementing Specific Component
-```
-@docs/architecture.md
-
-I need to implement the Vietnamese Embedding service (section 6).
-Create core/embeddings.py with:
-- FPT Cloud integration
-- 1024 dimensions
-- Document chunking
-- Async support
-- Error handling
-Follow .cursorrules patterns.
-```
-
-### Frontend Component
-```
-@docs/architecture.md
-
-Create the chat interface (section 1) with Ant Design:
-- Use Layout, Card, Input, Button
-- Support streaming messages
-- Follow the theme configuration
-- Implement useChat hook
-TypeScript strict mode.
-```
-
-### Kubernetes Deployment
-```
-@docs/architecture.md
-
-Create Kubernetes manifests for backend deployment:
-- 3-10 replicas with HPA
-- ConfigMap and Secrets
-- Resource limits
-- Health checks
-- Rolling update strategy
-Follow section on K8s deployment.
-```
-
-### Debugging
-```
-@docs/architecture.md @backend/core/rag.py
-
-I'm getting this error when running the RAG pipeline:
-[paste error]
-
-Please help fix while following architecture specs.
-What am I doing wrong?
-```
-
-### Code Review
-```
-@docs/architecture.md @.cursorrules @backend/api/chat.py
-
-Review this code:
-[paste code]
-
-Check:
-1. Follows architecture?
-2. Follows .cursorrules?
-3. Error handling correct?
-4. Security issues?
-5. Improvements needed?
-```
-
-## 🐛 Common Issues & Solutions
-
-### Issue 1: FPT Cloud API Not Working
-```
-Problem: API calls failing
-Solution:
-1. Check FPT_API_KEY in .env
-2. Verify endpoint: https://api.fpt.ai/v1
-3. Confirm model names are exact:
-   - Vietnamese_Embedding (not vietnamese_embedding)
-   - GLM-4.5 (not glm-4.5)
-4. Check API key has access to these models
-```
-
-### Issue 2: Qdrant Dimensions Mismatch
-```
-Problem: Vector dimension error
-Solution:
-- Vietnamese Embedding uses 1024 dimensions (not 1536)
-- Configure Qdrant collection with size=1024
-- Don't use OpenAI's default 1536
-```
-
-### Issue 3: Ant Design Not Rendering
-```
-Problem: Components not displaying
-Solution:
-1. Ensure ConfigProvider wraps app:
-   <ConfigProvider theme={theme} locale={viVN}>
-2. Import CSS: import 'antd/dist/reset.css'
-3. Check theme configuration in theme/antd-theme.ts
-```
-
-### Issue 4: Cursor Not Loading .cursorrules
-```
-Problem: Rules not being followed
-Solution:
-1. Ensure .cursorrules is in project root
-2. Restart Cursor (File → Reload Window)
-3. Check file permissions
-4. Manually reference: @.cursorrules
-```
-
-### Issue 5: Docker Build Failing
-```
-Problem: Image build errors
-Solution:
-1. Check Dockerfile follows multi-stage pattern
-2. Verify requirements.txt has correct versions
-3. Ensure .dockerignore excludes node_modules, venv
-4. Build with: docker build --no-cache
-```
-
-## 📊 Quality Checklist
-
-Before considering phase complete:
-
-### Backend
-- [ ] All imports work
-- [ ] No syntax errors
-- [ ] Type hints present
-- [ ] Docstrings complete
-- [ ] Error handling comprehensive
-- [ ] Logging configured
-- [ ] Environment variables used
-- [ ] Tests written and passing
-- [ ] API endpoints functional
-- [ ] Health check working
-
-### Frontend
-- [ ] TypeScript strict mode
-- [ ] No 'any' types
-- [ ] Ant Design components only
-- [ ] Proper error boundaries
-- [ ] Loading states implemented
-- [ ] API integration working
-- [ ] Responsive design
-- [ ] Theme applied correctly
-- [ ] Tests passing
-- [ ] Build successful
-
-### Infrastructure
-- [ ] Dockerfiles optimized
-- [ ] K8s manifests valid
-- [ ] Resources limits set
-- [ ] Health checks configured
-- [ ] Secrets not committed
-- [ ] ConfigMaps used correctly
-- [ ] Ingress configured
-- [ ] HPA working
-- [ ] CI/CD pipeline functional
-- [ ] Deployment successful
-
-## 🎓 Learning Resources
-
-### Understand the Architecture
-```
-@docs/architecture.md
-
-Can you explain:
-1. Why do we use two-stage retrieval?
-2. How does the RAG pipeline flow work?
-3. What's the purpose of Llama Guard?
-4. Why Ant Design over other UI frameworks?
-```
-
-### Best Practices
-```
-@.cursorrules
-
-Show me:
-1. The correct error handling pattern
-2. How to structure async functions
-3. Security best practices
-4. Testing requirements
-```
-
-### Implementation Details
-```
-@docs/cursor-prompt.md
-
-Explain:
-1. Phase 1.7 RAG Pipeline requirements
-2. Phase 2.5 Chat component specifications
-3. Phase 3.1 K8s manifest structure
-```
-
-## 🚀 Next Steps
-
-1. **Read This README** ✅ (You're here!)
-
-2. **Setup Project:**
-   ```bash
-   mkdir rag-system && cd rag-system
-   # Copy files as shown in Quick Start
-   cursor .
-   ```
-
-3. **Start Building:**
-   ```
-   Open Cursor Chat → Cmd+L
-   Reference @docs/architecture.md and @docs/cursor-prompt.md
-   Start with Phase 1.1
-   ```
-
-4. **Follow Phases:**
-   - Complete each phase fully
-   - Test after each component
-   - Use checklist to track progress
-
-5. **Deploy:**
-   ```bash
-   # When ready
-   ./scripts/deploy.sh v1.0.0
-   ```
-
-## 📞 Support
-
-### In Cursor Chat
-```
-For help, always reference the docs:
-@docs/architecture.md @.cursorrules @docs/cursor-prompt.md
-
-[Your question here]
-```
-
-### Documentation Structure
-```
-rag-system/
-├── docs/
-│   ├── architecture.md      ← Main reference
-│   ├── cursor-prompt.md     ← Development guide
-│   ├── QUICKSTART.md        ← This file
-│   └── README.md            ← Package overview
-├── .cursorrules             ← Auto-loaded rules
-└── [your code here]
-```
-
-## 🎉 Ready to Build!
-
-You have everything needed to build a production-ready RAG system:
-- ✅ Complete architecture
-- ✅ Automatic rules
-- ✅ Step-by-step guide
-- ✅ All code patterns
-- ✅ K8s deployment
-- ✅ CI/CD setup
-
-**Start now:**
-```bash
-cursor .
-# Press Cmd+L
-# Paste the quick start prompt
-# Start building! 🚀
-```
+Welcome to the MODAS RAG documentation! This directory contains comprehensive documentation for the Clean Architecture migration and overall project structure.
 
 ---
 
-**Remember:**
-- Reference @docs/architecture.md frequently
-- Let .cursorrules guide your code
-- Follow @docs/cursor-prompt.md phases
-- Test as you go
-- Keep it production-ready!
+## 📚 Documentation Overview
 
-Good luck building your RAG system! 🎊
+### 🎯 Start Here
+
+**If you're new to this project:**
+1. Read the [Main README](../README.md) - Project overview
+2. Read the [Migration Summary](summary-refactoring-plan.md) - Executive summary
+3. Review [Current State Analysis](analysis-current-architecture.md) - Understand what we have
+
+**If you're ready to contribute:**
+1. Read [Clean Architecture Design](clean-architecture-design.md) - Target architecture
+2. Follow [Migration Plan](migration-plan.md) - Step-by-step guide
+3. Check [PROGRESS](../PROGRESS.md) - Current status
+
+---
+
+## 📖 Core Documentation
+
+### 1. [Summary: Refactoring Plan](summary-refactoring-plan.md) ⭐ START HERE
+**Purpose:** Executive summary of the Clean Architecture migration
+
+**Contents:**
+- Current state analysis (V1.0: ~30% complete)
+- Target architecture (V2.0: Clean Architecture + DDD)
+- Migration plan overview (7 phases, 2.5 weeks)
+- Key benefits and success metrics
+- Next steps and immediate actions
+
+**Audience:** Everyone - Product managers, developers, stakeholders
+
+**Read Time:** ~15 minutes
+
+---
+
+### 2. [Detailed Migration Plan](migration-plan.md) ⭐ IMPLEMENTATION GUIDE
+**Purpose:** Phase-by-phase migration plan with detailed tasks
+
+**Contents:**
+- **Phase 1:** Domain Layer (2 days) - Value Objects, Entities, Events
+- **Phase 2:** Domain Interfaces (1 day) - Repository & Service contracts
+- **Phase 3:** Infrastructure (3 days) - Adapters, Repositories, Factories
+- **Phase 4:** Use Cases (2 days) - Business logic orchestration
+- **Phase 5:** DI Container (1 day) - Dependency injection setup
+- **Phase 6:** API Layer (2 days) - Routes, schemas, middleware
+- **Phase 7:** Testing & Docs (2 days) - 90%+ coverage, ADRs, guides
+
+**Each Phase Includes:**
+- Detailed task breakdown with time estimates
+- Code examples for implementation
+- Testing requirements
+- Acceptance criteria
+- Success metrics
+
+**Audience:** Developers implementing the migration
+
+**Read Time:** ~45 minutes (reference document)
+
+---
+
+### 3. [Clean Architecture Design](clean-architecture-design.md) ⭐ ARCHITECTURE REFERENCE
+**Purpose:** Complete architectural design for V2.0
+
+**Contents:**
+- **Architecture Overview:** Layer definitions and principles
+- **Layer Details:**
+  - Domain Layer (Pure business logic, no deps)
+  - Application Layer (Use cases, orchestration)
+  - Infrastructure Layer (AI, DB, external services)
+  - API Layer (FastAPI routes, schemas)
+- **Folder Structure:** Complete directory layout with 50+ files
+- **Component Design:** Code examples for entities, use cases, adapters
+- **Design Patterns:** 6 patterns (Repository, Strategy, Factory, Adapter, DI, UoW)
+- **Dependencies Flow:** How components depend on each other
+- **Testing Strategy:** Unit, integration, E2E tests
+
+**Audience:** Architects, senior developers, code reviewers
+
+**Read Time:** ~60 minutes (comprehensive reference)
+
+---
+
+### 4. [Current Architecture Analysis](analysis-current-architecture.md)
+**Purpose:** Detailed analysis of existing codebase (V1.0)
+
+**Contents:**
+- **Current Architecture Pattern:** Functional, service-oriented
+- **Component Categorization:**
+  - Business logic vs infrastructure
+  - What's completed vs missing
+  - Issues and technical debt
+- **Dependency Mapping:** Current dependency flow
+- **Data Flow Analysis:** How requests flow through the system
+- **Testing Gaps:** What's missing
+- **Configuration Analysis:** Current config management
+- **Migration Complexity Assessment:** Risks and estimates
+
+**Audience:** Developers understanding the current state
+
+**Read Time:** ~30 minutes
+
+---
+
+## 🗂️ Supporting Documentation
+
+### Project Documentation
+
+#### [Main Project README](../README.md)
+- Project overview and features
+- Tech stack summary
+- Quick start guide
+- Deployment instructions
+- **Status:** ✅ Updated for V2.0
+
+#### [PROGRESS Tracker](../PROGRESS.md)
+- Development milestones (V1.0 + V2.0)
+- Phase completion status
+- Metrics and statistics
+- Next steps
+- **Status:** ✅ Updated daily
+
+### Component Documentation
+
+#### [Backend README](../backend/README.md)
+- Backend architecture status (V1.0 → V2.0)
+- Installation and setup
+- Current features (config, embeddings, schemas, logging)
+- Planned features (RAG pipeline, use cases, API endpoints)
+- Migration phases summary
+- Testing guide
+- **Status:** ✅ Updated for V2.0
+
+#### [Frontend README](../frontend/README.md)
+- Frontend architecture (React + Ant Design)
+- Components documentation
+- API client usage
+- Development guide
+- **Status:** ✅ Complete (no changes needed)
+
+#### [Kubernetes README](../k8s/README.md)
+- Deployment instructions
+- Resource configuration (HPA, StatefulSets)
+- Monitoring and health checks
+- Troubleshooting guide
+- **Status:** ✅ Complete (production-ready)
+
+---
+
+## 🏗️ Legacy Documentation
+
+### Original Development Docs
+
+These documents represent the original functional architecture approach. They are kept for reference but are being superseded by the Clean Architecture migration.
+
+#### [architecture.md](architecture.md)
+**Status:** 📖 Legacy - Reference only
+
+Original system architecture with functional approach.
+
+**Keep for:**
+- Understanding original design decisions
+- Technical specifications (still valid)
+- AI models configuration (unchanged)
+
+**Superseded by:** [clean-architecture-design.md](clean-architecture-design.md)
+
+#### [cursor-prompt.md](cursor-prompt.md)
+**Status:** 📖 Legacy - Reference only
+
+Original phase-by-phase development guide for Cursor AI.
+
+**Keep for:**
+- Historical context
+- Component specifications (still valid)
+
+**Superseded by:** [migration-plan.md](migration-plan.md)
+
+#### [QUICKSTART.md](QUICKSTART.md)
+**Status:** 📖 Legacy - Needs update
+
+Quick start guide for the original architecture.
+
+**Action Required:** Update for Clean Architecture once migration complete
+
+---
+
+## 🎯 Documentation Usage Guide
+
+### For Different Roles
+
+#### **Product Managers / Stakeholders**
+1. Read: [Summary: Refactoring Plan](summary-refactoring-plan.md)
+2. Review: [PROGRESS Tracker](../PROGRESS.md)
+3. Reference: [Main README](../README.md)
+
+**Focus:** Benefits, timeline, success metrics
+
+#### **New Developers**
+1. Read: [Main README](../README.md)
+2. Read: [Summary: Refactoring Plan](summary-refactoring-plan.md)
+3. Review: [Current Architecture Analysis](analysis-current-architecture.md)
+4. Read: [Clean Architecture Design](clean-architecture-design.md)
+5. Follow: [Migration Plan](migration-plan.md)
+
+**Focus:** Understanding architecture, getting started
+
+#### **Migration Contributors**
+1. Review: [Clean Architecture Design](clean-architecture-design.md)
+2. Follow: [Migration Plan](migration-plan.md) (your daily guide)
+3. Reference: [PROGRESS Tracker](../PROGRESS.md) (track phase completion)
+4. Check: Component READMEs for specific details
+
+**Focus:** Implementation, testing, phase completion
+
+#### **Code Reviewers**
+1. Reference: [Clean Architecture Design](clean-architecture-design.md)
+2. Check: [Migration Plan](migration-plan.md) acceptance criteria
+3. Review: Component documentation for context
+
+**Focus:** Architecture compliance, testing coverage
+
+#### **DevOps / Deployment**
+1. Read: [Kubernetes README](../k8s/README.md)
+2. Review: [Backend README](../backend/README.md) configuration
+3. Check: [Main README](../README.md) deployment section
+
+**Focus:** Deployment, scaling, monitoring
+
+---
+
+## 📋 Documentation Checklist
+
+### Complete ✅
+- [x] Summary: Refactoring Plan
+- [x] Detailed Migration Plan
+- [x] Clean Architecture Design
+- [x] Current Architecture Analysis
+- [x] Main Project README (updated)
+- [x] Backend README (updated)
+- [x] PROGRESS Tracker (updated)
+- [x] This Documentation Index
+
+### In Progress ⏳
+- [ ] QUICKSTART.md (needs update after migration)
+
+### To Be Created (Phase 7) ⏳
+- [ ] Architecture Decision Records (ADRs)
+  - [ ] ADR-001: Adopt Clean Architecture
+  - [ ] ADR-002: Dependency Injection Strategy
+  - [ ] ADR-003: Repository Pattern Implementation
+  - [ ] ADR-004: Multi-Provider Support
+- [ ] Developer Guide (comprehensive)
+- [ ] API Documentation (OpenAPI spec)
+- [ ] Deployment Runbook
+- [ ] Troubleshooting Guide
+
+---
+
+## 🔍 Finding Information
+
+### Common Questions
+
+**Q: Where do I start?**
+→ [Summary: Refactoring Plan](summary-refactoring-plan.md)
+
+**Q: How do I implement a feature?**
+→ [Migration Plan](migration-plan.md) → Find relevant phase → Follow tasks
+
+**Q: What's the target architecture?**
+→ [Clean Architecture Design](clean-architecture-design.md)
+
+**Q: What's the current status?**
+→ [PROGRESS Tracker](../PROGRESS.md)
+
+**Q: How do I deploy?**
+→ [Kubernetes README](../k8s/README.md)
+
+**Q: How do I setup backend dev environment?**
+→ [Backend README](../backend/README.md)
+
+**Q: What are the design patterns?**
+→ [Clean Architecture Design](clean-architecture-design.md) Section 5
+
+**Q: How do I write tests?**
+→ [Clean Architecture Design](clean-architecture-design.md) Section 7
+
+**Q: What's the folder structure?**
+→ [Clean Architecture Design](clean-architecture-design.md) Section 3
+
+**Q: Why are we refactoring?**
+→ [Current Architecture Analysis](analysis-current-architecture.md) Section 2
+
+---
+
+## 📊 Documentation Statistics
+
+### Total Documentation
+- **Core Docs:** 4 files (~18,000 words)
+- **Component Docs:** 4 READMEs
+- **Legacy Docs:** 3 files (reference)
+- **Total:** 11+ documentation files
+
+### Coverage
+- ✅ Architecture: 100%
+- ✅ Migration Plan: 100%
+- ✅ Current State: 100%
+- ✅ Components: 100%
+- ⏳ ADRs: 0% (Phase 7)
+- ⏳ API Docs: 0% (Phase 7)
+
+---
+
+## 🔗 Quick Links
+
+### Primary Documents
+- [Summary](summary-refactoring-plan.md)
+- [Migration Plan](migration-plan.md)
+- [Architecture Design](clean-architecture-design.md)
+- [Current Analysis](analysis-current-architecture.md)
+
+### Project Links
+- [Main README](../README.md)
+- [PROGRESS](../PROGRESS.md)
+- [Backend](../backend/README.md)
+- [Frontend](../frontend/README.md)
+- [Kubernetes](../k8s/README.md)
+
+### External Resources
+- [Clean Architecture (Uncle Bob)](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
+- [Domain-Driven Design](https://martinfowler.com/bliki/DomainDrivenDesign.html)
+- [FastAPI Best Practices](https://fastapi.tiangolo.com/tutorial/bigger-applications/)
+- [Dependency Injection in Python](https://github.com/ets-labs/python-dependency-injector)
+
+---
+
+## 🤝 Contributing to Documentation
+
+### When to Update Docs
+
+**After Each Phase:**
+- Update [PROGRESS Tracker](../PROGRESS.md)
+- Mark tasks complete in [Migration Plan](migration-plan.md)
+- Update relevant component READMEs
+
+**When Making Decisions:**
+- Create ADR in `docs/adr/` (Phase 7)
+- Update [Clean Architecture Design](clean-architecture-design.md) if needed
+
+**When Discovering Issues:**
+- Document in [Current Architecture Analysis](analysis-current-architecture.md)
+- Note in [Migration Plan](migration-plan.md) risks section
+
+### Documentation Standards
+
+**Formatting:**
+- Use GitHub-flavored Markdown
+- Include table of contents for docs > 100 lines
+- Use code blocks with language tags
+- Add diagrams where helpful
+
+**Style:**
+- Write in clear, concise English (or Vietnamese where appropriate)
+- Use active voice
+- Include examples
+- Link to related docs
+
+**Structure:**
+- Start with purpose/overview
+- Use hierarchical headings
+- Include quick reference sections
+- End with next steps
+
+---
+
+## 📞 Getting Help
+
+### Documentation Issues
+
+**If documentation is unclear:**
+1. Check related docs (use Quick Links above)
+2. Review examples in [Migration Plan](migration-plan.md)
+3. Check component READMEs for specific details
+4. Open an issue on GitHub
+
+**If you need clarification:**
+1. Reference specific document + section
+2. Describe what's unclear
+3. Suggest improvements
+
+---
+
+## ✅ Documentation Roadmap
+
+### Phase 7: Complete Documentation (Week 3)
+
+**Tasks:**
+- [ ] Write ADR-001 through ADR-004
+- [ ] Create comprehensive Developer Guide
+- [ ] Generate OpenAPI documentation
+- [ ] Create Deployment Runbook
+- [ ] Write Troubleshooting Guide
+- [ ] Update QUICKSTART.md
+- [ ] Create Architecture Diagrams (visual)
+- [ ] Add code examples repository
+
+**Timeline:** 2 days in Week 3
+
+---
+
+**Status:** ✅ Core Documentation Complete
+
+**Next:** Begin Phase 1 implementation following the [Migration Plan](migration-plan.md)
+
+**Questions?** See [Migration Summary](summary-refactoring-plan.md) or open an issue
